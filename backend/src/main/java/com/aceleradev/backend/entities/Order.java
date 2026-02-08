@@ -10,34 +10,31 @@ import java.util.Set;
 @Entity
 @Table(name = "tb_order")
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderId;
+    private Integer id;
     private ZonedDateTime moment;
     private Integer orderStatus;
     @ManyToOne
     @JoinColumn(name="customerId")
     private Customer customer;
-    @OneToOne
-    @JoinColumn(name="id")
+    @ManyToOne
+    @JoinColumn(name="employee_id")
     private Employee employee;
 
-    @OneToMany(mappedBy = "id.order")
-    private Set<OrderItem> items = new HashSet<>();
-
-    @OneToOne(mappedBy = "orderId", cascade = CascadeType.ALL) // mapeando as entidades para terem o mesmo id
+    @OneToOne(mappedBy = "orderId", cascade = CascadeType.ALL)
     private Payment payment;
 
-    public Order(){}
 
-    public Order(Long id, ZonedDateTime moment, OrderStatus orderStatus, Customer customer, Employee employee){
-        this.orderId = orderId;
+    public Order(Integer id, ZonedDateTime moment, OrderStatus orderStatus, Customer customer, Employee employee){
+        this.id = id;
         this.moment = moment;
         this.setOrderStatus(orderStatus);
         this.customer = customer;
         this.employee = employee;
     }
+
+    public Order() {}
 
     public Employee getEmployeeId() {
         return employee;
@@ -65,10 +62,6 @@ public class Order {
         }
     }
 
-    public void setItems(Set<OrderItem> items) {
-        this.items = items;
-    }
-
     public ZonedDateTime getMoment() {
         return moment;
     }
@@ -78,11 +71,11 @@ public class Order {
     }
 
     public int getOrderId() {
-        return orderId;
+        return id;
     }
 
     public void setOrderId(int orderId) {
-        this.orderId = orderId;
+        this.id = orderId;
     }
 
     public Payment getPayment() {
@@ -92,18 +85,5 @@ public class Order {
     public void setPayment(Payment payment) {
         this.payment = payment;
     }
-
-    public Set<OrderItem> getItems() {
-        return items;
-    }
-
-    public Double getTotal(){
-        double sum = 0.0;
-        for (OrderItem x : items){
-            sum += x.getSubtotal();
-        }
-        return sum;
-    }
-
 
 }

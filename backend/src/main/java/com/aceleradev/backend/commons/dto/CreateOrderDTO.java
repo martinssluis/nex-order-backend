@@ -1,18 +1,19 @@
 package com.aceleradev.backend.commons.dto;
 
-import com.aceleradev.backend.entities.Customer;
-import com.aceleradev.backend.entities.Employee;
 import com.aceleradev.backend.entities.OrderItem;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class CreateOrderDTO {
 
     private Integer orderStatus;
-    private Customer customer;
-    private Employee employee;
-    private Set<OrderItem> items = new HashSet<>();
+    private Long customerId;
+    private Long employeeId;
+    private List<OrderItemDto> items = new ArrayList<>();
 
     public Integer getOrderStatus() {
         return orderStatus;
@@ -22,28 +23,27 @@ public class CreateOrderDTO {
         this.orderStatus = orderStatus;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Long getCustomer() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Long getEmployee() {
+        return employeeId;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public Set<OrderItem> getItems() {
+    public List<OrderItemDto> getItems() {
         return items;
     }
 
-    public void setItems(Set<OrderItem> items) {
+    public void setItems(List<OrderItemDto> items) {
         this.items = items;
     }
-
 }
