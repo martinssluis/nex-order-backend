@@ -1,49 +1,36 @@
 package com.aceleradev.backend.entities;
 
-import com.aceleradev.backend.entities.pk.OrderItemPK;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-
-import java.io.Serializable;
-import java.util.Objects;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_order_item")
-public class OrderItem implements Serializable {
-    private static final long serialVersionUID = 1L;
-
-    @EmbeddedId
-    private OrderItemPK id = new OrderItemPK();
+public class OrderItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     private Integer quantity;
+
     private Double price;
 
-    public OrderItem(){}
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order orderId;
 
-    public OrderItem(Order order, Product product, Integer quantity, Double price) {
-        super();
-        id.setOrder(order);
-        id.setProduct(product);
-        this.quantity = quantity;
-        this.price = price;
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    private Product product;
+
+    public OrderItem() {
     }
 
-    @JsonIgnore
-    public Order getOrder(){
-        return id.getOrder();
-    }
-    public void setOrder(Order order){
-        id.setOrder(order);
+    public int getId() {
+        return id;
     }
 
-    public Product getProduct(){
-        return id.getProduct();
-    }
-
-    public void setProduct(Product product){
-        id.setProduct(product);
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Integer getQuantity() {
@@ -62,19 +49,26 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
-    public Double getSubtotal(){
-        return price * quantity;
+    public Order getOrderId() {
+        return orderId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        OrderItem orderItem = (OrderItem) o;
-        return Objects.equals(id, orderItem.id);
+    public void setOrderId(Order orderId) {
+        this.orderId = orderId;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
+    public Product getProduct() {
+        return product;
     }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+
+    public OrderItem(Order order, Product product, Integer quantity, Double price) {
+        this.quantity = quantity;
+        this.price = price;
+    }
+
 }

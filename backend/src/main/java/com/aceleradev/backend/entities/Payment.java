@@ -9,7 +9,7 @@ import java.time.ZonedDateTime;
 public class Payment {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
-    private Long paymentId;
+    private Long id;
     private ZonedDateTime moment;
     private double amountPaid;
     @Enumerated(EnumType.STRING)
@@ -20,8 +20,8 @@ public class Payment {
 
     public Payment(){}
 
-    public Payment(Long paymentId, ZonedDateTime moment, double amountPaid, PaymentMethod paymentMethod, Order orderId) {
-        this.paymentId = paymentId;
+    public Payment(Long id, ZonedDateTime moment, double amountPaid, PaymentMethod paymentMethod, Order orderId) {
+        this.id = id;
         this.moment = moment;
         this.amountPaid = amountPaid;
         this.paymentMethod = paymentMethod;
@@ -29,11 +29,11 @@ public class Payment {
     }
 
     public Long getPaymentId() {
-        return paymentId;
+        return id;
     }
 
-    public void setPaymentId(Long paymentId) {
-        this.paymentId = paymentId;
+    public void setPaymentId(Long id) {
+        this.id = id;
     }
 
     public ZonedDateTime getMoment() {

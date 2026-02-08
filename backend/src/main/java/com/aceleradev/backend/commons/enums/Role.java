@@ -1,7 +1,6 @@
 package com.aceleradev.backend.commons.enums;
 
 public enum Role {
-
     SELLER(1),
     MANAGER(2),
     INTERN(3);

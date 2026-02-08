@@ -1,7 +1,6 @@
 package com.aceleradev.backend.services;
 
 import com.aceleradev.backend.commons.dto.EmployeeDto;
-import com.aceleradev.backend.entities.Customer;
 import com.aceleradev.backend.entities.Employee;
 import com.aceleradev.backend.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
