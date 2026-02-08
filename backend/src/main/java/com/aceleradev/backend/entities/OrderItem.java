@@ -16,7 +16,7 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order orderId;
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "productId")
@@ -50,11 +50,11 @@ public class OrderItem {
     }
 
     public Order getOrderId() {
-        return orderId;
+        return order;
     }
 
     public void setOrderId(Order orderId) {
-        this.orderId = orderId;
+        this.order = orderId;
     }
 
     public Product getProduct() {

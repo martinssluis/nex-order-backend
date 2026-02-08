@@ -1,14 +1,9 @@
 package com.aceleradev.backend.commons.dto;
 
-import com.aceleradev.backend.entities.OrderItem;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-public class CreateOrderDTO {
+public class OrderDTO {
 
     private String orderStatus;
     private Long customerId;

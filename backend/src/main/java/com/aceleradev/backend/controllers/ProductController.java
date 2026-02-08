@@ -5,6 +5,9 @@ import com.aceleradev.backend.commons.dto.ProductDto;
 import com.aceleradev.backend.entities.Product;
 import com.aceleradev.backend.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.http.codec.HttpCodecsProperties;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,15 +33,15 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto){
-        Product product = productService.createProduct(productDto);
-        return ResponseEntity.ok().body(productDto);
+    public ResponseEntity createProduct(@RequestBody ProductDto productDto){
+        productService.createProduct(productDto);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto){
-        Product updatedProduct = productService.updateProduct(id, productDto);
-        return ResponseEntity.ok().body(updatedProduct);
+    public ResponseEntity updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto){
+        productService.updateProduct(id, productDto);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
