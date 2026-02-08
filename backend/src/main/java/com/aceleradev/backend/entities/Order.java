@@ -10,34 +10,37 @@ import java.util.Set;
 @Entity
 @Table(name = "tb_order")
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderId;
+    private Integer id;
+
     private ZonedDateTime moment;
-    private Integer orderStatus;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
+    private OrderStatus orderStatus;
+
     @ManyToOne
     @JoinColumn(name="customerId")
     private Customer customer;
-    @OneToOne
-    @JoinColumn(name="id")
+
+    @ManyToOne
+    @JoinColumn(name="employee_id")
     private Employee employee;
 
-    @OneToMany(mappedBy = "id.order")
-    private Set<OrderItem> items = new HashSet<>();
-
-    @OneToOne(mappedBy = "orderId", cascade = CascadeType.ALL) // mapeando as entidades para terem o mesmo id
+    @OneToOne(mappedBy = "orderId", cascade = CascadeType.ALL)
     private Payment payment;
 
-    public Order(){}
 
-    public Order(Long id, ZonedDateTime moment, OrderStatus orderStatus, Customer customer, Employee employee){
-        this.orderId = orderId;
+    public Order(Integer id, ZonedDateTime moment, OrderStatus orderStatus, Customer customer, Employee employee){
+        this.id = id;
         this.moment = moment;
-        this.setOrderStatus(orderStatus);
+        this.orderStatus = orderStatus;
         this.customer = customer;
         this.employee = employee;
     }
+
+    public Order() {}
 
     public Employee getEmployeeId() {
         return employee;
@@ -55,17 +58,6 @@ public class Order {
         this.customer = customerId;
     }
 
-    public OrderStatus getOrderStatus() {
-        return OrderStatus.valueOf(orderStatus);
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        if (orderStatus != null) {
-            this.orderStatus = orderStatus.getCode();
-        }
-    }
-
-
     public ZonedDateTime getMoment() {
         return moment;
     }
@@ -75,11 +67,11 @@ public class Order {
     }
 
     public int getOrderId() {
-        return orderId;
+        return id;
     }
 
     public void setOrderId(int orderId) {
-        this.orderId = orderId;
+        this.id = orderId;
     }
 
     public Payment getPayment() {
@@ -90,17 +82,12 @@ public class Order {
         this.payment = payment;
     }
 
-    public Set<OrderItem> getItems() {
-        return items;
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
-    public Double getTotal(){
-        double sum = 0.0;
-        for (OrderItem x : items){
-            sum += x.getSubtotal();
-        }
-        return sum;
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
-
-
 }

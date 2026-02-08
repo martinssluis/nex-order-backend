@@ -9,10 +9,9 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "tb_employee")
 public class Employee extends User {
-
-    private Integer role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     private Double baseSalary;
-
 
     public Employee(){}
 
@@ -29,15 +28,11 @@ public class Employee extends User {
     }
 
     public Role getRole() {
-
-        return Role.valueOf(role);
+        return this.role;
     }
 
     public void setRole(Role role) {
-        if (role != null){
-        this.role = role.getCode();
-        }
-
+        this.role = role;
     }
 
     public Double getBaseSalary() {

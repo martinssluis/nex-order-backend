@@ -12,6 +12,7 @@ public class Payment {
     private Long paymentId;
     private ZonedDateTime moment;
     private double amountPaid;
+    @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
     @OneToOne
     @JoinColumn(name="orderId")
