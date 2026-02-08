@@ -9,10 +9,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "tb_employee")
 public class Employee extends User {
-
     private Integer role;
     private Double baseSalary;
-
 
     public Employee(){}
 

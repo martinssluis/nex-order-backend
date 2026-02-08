@@ -4,11 +4,11 @@ public enum OrderStatus {
 
     WAITING_PAYMENT(1),
     PAID(2),
-    CANCELED(3);
+    CANCELLED(3);
 
-    private int code;
+    private Integer code;
 
-    private OrderStatus(int code) {
+    private OrderStatus(Integer code) {
         this.code = code;
     }
 
@@ -16,7 +16,7 @@ public enum OrderStatus {
         return code;
     }
 
-    public static OrderStatus valueOf(int code) {
+    public static OrderStatus valueOf(Integer code) {
         for (OrderStatus value : OrderStatus.values()) {
             if (value.getCode() == code) {
                 return value;
