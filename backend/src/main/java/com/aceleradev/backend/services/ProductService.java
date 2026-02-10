@@ -25,6 +25,7 @@ public class ProductService {
                     productDto.setName(product.getName());
                     productDto.setPrice(product.getPrice());
                     productDto.setCategory(product.getCategory());
+                    productDto.setId(product.getId());
                     return productDto;
                 })
                 .toList();
@@ -37,22 +38,22 @@ public class ProductService {
         productDto.setName(product.getName());
         productDto.setPrice(product.getPrice());
         productDto.setCategory(product.getCategory());
+        productDto.setId(product.getId());
 
         return productDto;
 
     }
 
-    public Product createProduct(ProductDto productDto) {
+    public void createProduct(ProductDto productDto) {
         Product productEntity = new Product();
         
         productEntity.setName(productDto.getName());
         productEntity.setPrice(productDto.getPrice());
         productEntity.setCategory(productDto.getCategory());
 
-        return productRepository.save(productEntity);
     }
 
-    public Product updateProduct(Long id, ProductDto productDto) {
+    public ProductDto updateProduct(Long id, ProductDto productDto) {
 
         Optional<Product> optionalProduct = productRepository.findById(id);
 
@@ -62,7 +63,14 @@ public class ProductService {
             product.setName(productDto.getName());
             product.setPrice(productDto.getPrice());
             product.setCategory(productDto.getCategory());
-            return productRepository.save(product);
+            productRepository.save(product);
+
+            productDto.setName(optionalProduct.get().getName());
+            productDto.setCategory(optionalProduct.get().getCategory());
+            product.setPrice(optionalProduct.get().getPrice());
+            product.setId(optionalProduct.get().getId());
+
+            return productDto;
 
         } else {
             throw new RuntimeException("Product not found!");
@@ -73,6 +81,5 @@ public class ProductService {
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
-
 
 }

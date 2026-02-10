@@ -13,11 +13,17 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private ZonedDateTime moment;
-    private Integer orderStatus;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
+    private OrderStatus orderStatus;
+
     @ManyToOne
     @JoinColumn(name="customerId")
     private Customer customer;
+
     @ManyToOne
     @JoinColumn(name="employee_id")
     private Employee employee;
@@ -29,7 +35,7 @@ public class Order {
     public Order(Integer id, ZonedDateTime moment, OrderStatus orderStatus, Customer customer, Employee employee){
         this.id = id;
         this.moment = moment;
-        this.setOrderStatus(orderStatus);
+        this.orderStatus = orderStatus;
         this.customer = customer;
         this.employee = employee;
     }
@@ -50,16 +56,6 @@ public class Order {
 
     public void setCustomerId(Customer customerId) {
         this.customer = customerId;
-    }
-
-    public OrderStatus getOrderStatus() {
-        return OrderStatus.valueOf(orderStatus);
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        if (orderStatus != null) {
-            this.orderStatus = orderStatus.getCode();
-        }
     }
 
     public ZonedDateTime getMoment() {
@@ -86,4 +82,12 @@ public class Order {
         this.payment = payment;
     }
 
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 }

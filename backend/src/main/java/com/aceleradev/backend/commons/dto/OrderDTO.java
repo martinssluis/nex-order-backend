@@ -1,25 +1,20 @@
 package com.aceleradev.backend.commons.dto;
 
-import com.aceleradev.backend.entities.OrderItem;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-public class CreateOrderDTO {
+public class OrderDTO {
 
-    private Integer orderStatus;
+    private String orderStatus;
     private Long customerId;
     private Long employeeId;
     private List<OrderItemDto> items = new ArrayList<>();
 
-    public Integer getOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(Integer orderStatus) {
+    public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
 

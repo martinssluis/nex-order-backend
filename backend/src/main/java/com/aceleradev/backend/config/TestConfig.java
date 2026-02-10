@@ -62,6 +62,6 @@ public class TestConfig implements CommandLineRunner {
         o1.setPayment(pay1);
 
         orderRepository.save(o1);
-        //employeeRepository.saveAll(List.of(e1));  List.of() no lugar de asList() pois temos apenas um parâmetro sendo passado
+
     }
 }
