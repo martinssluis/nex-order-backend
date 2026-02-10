@@ -41,8 +41,6 @@ public class PaymentService {
             paymentToSave.setPaymentMethod(payment.getPaymentMethod());
             paymentToSave.setOrderId(getOrder(customerId));
 
-            getTotalValue(customerId);
-            getOrder(customerId).setOrderStatus(OrderStatus.PAID);
             order.setOrderStatus(OrderStatus.PAID);
 
             orderRepository.save(order);
