@@ -9,6 +9,16 @@ public class OrderDTO {
     private Long customerId;
     private Long employeeId;
     private List<OrderItemDto> items = new ArrayList<>();
+    private Double total;
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
 
     public String getOrderStatus() {
         return orderStatus;

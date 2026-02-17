@@ -7,8 +7,6 @@ import com.aceleradev.backend.entities.*;
 import com.aceleradev.backend.repositories.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -70,6 +68,7 @@ public class OrderService {
         orderDTO.setOrderStatus(findOrder.getOrderStatus().name());
         orderDTO.setCustomerId(findOrder.getCustomerId().getId());
         orderDTO.setEmployeeId(findOrder.getEmployeeId().getId());
+        orderDTO.setTotal(Math.round(getTotalValue(findOrder.getOrderId()) * 100.00) / 100.00);
         List<OrderItemDto> itemsList = orderItems.stream().map(item ->
                 {
                     orderItemDto.setName(item.getProduct().getName());
@@ -82,6 +81,17 @@ public class OrderService {
         orderDTO.setItems(itemsList);
 
         return orderDTO;
+    }
+
+    private Double getTotalValue(int orderId) {
+        Order findOrder = orderRepository.findById((long) orderId).orElseThrow(() -> new EntityNotFoundException("Not Found"));
+        List<OrderItem> item = orderItemRepository.findAllByOrder(findOrder);
+        Double totalValue = 0.0;
+        for (int i = 0; i < item.size(); i++) {
+            int quantity  = item.get(i).getQuantity();
+            totalValue += item.get(i).getPrice()*quantity;
+        }
+        return totalValue;
     }
 
 }
