@@ -29,6 +29,7 @@ public class PaymentService {
     @Autowired
     private PaymentRepository paymentRepository;
 
+    //TODO -- NÃO RECEBER O VALOR TOTAL DO PAGAMENTO PELO DTO -- PaymentDto
     public void makePayment(Long customerId, PaymentDto payment) {
         if (payment.getTotalValue().equals(getTotalValue(customerId))) {
             Payment paymentToSave = new Payment();
@@ -52,6 +53,7 @@ public class PaymentService {
                 .orElseThrow(() -> new EntityNotFoundException("Not Found"));
     }
 
+    //TODO - BUSCAR O PAGAMENTO PELO ID DO PEDIDO E NÃO PELO CUSTOMER
     private Order getOrder(Long customerID) {
         List<Order> orderList = orderRepository.findAllByCustomer(getCustomer(customerID));
         return orderList.stream()

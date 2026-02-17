@@ -29,6 +29,8 @@ public class OrderService {
     @Autowired
     public ProductRepository productRepository;
 
+    //TODO: NESTE SERVIÇO O TOTAL VALUE ESTÁ SENDO RETORNADO COM UMA CASA DECIMAL SOMENTE -- AJUSTAR PARA RETORNAR 2 CASAS DECIMAIS
+
     public Order createOrder(OrderDTO orderDTO) {
         Order orderEntity = new Order();
         OrderItem orderItemEntity = new OrderItem();

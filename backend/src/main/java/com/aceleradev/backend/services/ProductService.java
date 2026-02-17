@@ -44,7 +44,9 @@ public class ProductService {
 
     }
 
-    public void createProduct(ProductDto productDto) { // return the created product
+
+    //TODO -- RETORNAR O PRODUTO CRIADO
+    public void createProduct(ProductDto productDto) {
         Product productEntity = new Product();
         
         productEntity.setName(productDto.getName());
@@ -79,7 +81,8 @@ public class ProductService {
 
     }
 
-    public void deleteProduct(Long id) { // validar se o produto existe -- TRY - CACTH -- EXCEPTION ESPECIFICA
+    //TODO -- ANTES DE REALIZAR A EXCLUSÃO,VALIDAR SE O PRODUTO EXISTE MESMO OU NÃO | CONFIGURAR UMA EXCEPTION ESPECÍFICA PRA ISSO
+    public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
 
