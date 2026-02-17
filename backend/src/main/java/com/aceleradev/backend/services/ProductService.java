@@ -44,13 +44,14 @@ public class ProductService {
 
     }
 
-    public void createProduct(ProductDto productDto) {
+    public void createProduct(ProductDto productDto) { // return the created product
         Product productEntity = new Product();
         
         productEntity.setName(productDto.getName());
         productEntity.setPrice(productDto.getPrice());
         productEntity.setCategory(productDto.getCategory());
 
+        productRepository.save(productEntity);
     }
 
     public ProductDto updateProduct(Long id, ProductDto productDto) {
@@ -78,7 +79,7 @@ public class ProductService {
 
     }
 
-    public void deleteProduct(Long id) {
+    public void deleteProduct(Long id) { // validar se o produto existe -- TRY - CACTH -- EXCEPTION ESPECIFICA
         productRepository.deleteById(id);
     }
 

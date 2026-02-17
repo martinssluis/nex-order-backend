@@ -13,10 +13,7 @@ import com.aceleradev.backend.repositories.PaymentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PaymentService {
@@ -39,7 +36,7 @@ public class PaymentService {
             Order order = getOrder(customerId);
             paymentToSave.setAmountPaid(payment.getTotalValue());
             paymentToSave.setPaymentMethod(payment.getPaymentMethod());
-            paymentToSave.setOrderId(getOrder(customerId));
+            paymentToSave.setOrderId(order);
 
             order.setOrderStatus(OrderStatus.PAID);
 
@@ -49,7 +46,6 @@ public class PaymentService {
             new RuntimeException("Falha ao realizar pagamento");
         }
     }
-
 
     private Customer getCustomer(Long customerId) {
         return customerRepository.findById(customerId)
@@ -68,7 +64,8 @@ public class PaymentService {
         List<OrderItem> item = orderItemRepository.findAllByOrder(getOrder(customerID));
         Double totalValue = 0.0;
         for (int i = 0; i < item.size(); i++) {
-            totalValue += item.get(i).getPrice();
+            int quantity  = item.get(i).getQuantity();
+            totalValue += item.get(i).getPrice()*quantity;
         }
         return totalValue;
     }
