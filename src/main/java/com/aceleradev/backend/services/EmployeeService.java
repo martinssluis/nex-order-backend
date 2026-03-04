@@ -21,7 +21,7 @@ public class EmployeeService {
         return employees.stream().map(
                 it -> {
                     dto.setName(it.getName());
-                    dto.setActive(it.getActive());
+                    dto.setIsActive(it.getActive());
                     dto.setPhoneNumber(it.getPhoneNumber());
                     dto.setEmail(it.getEmail());
                     dto.setDescription(it.getDescription());
@@ -39,7 +39,7 @@ public class EmployeeService {
         Employee obj = employee.get();
 
         dto.setName(obj.getName());
-        dto.setActive(obj.getActive());
+        dto.setIsActive(obj.getActive());
         dto.setPhoneNumber(obj.getPhoneNumber());
         dto.setEmail(obj.getEmail());
         dto.setDescription(obj.getDescription());
@@ -56,7 +56,7 @@ public class EmployeeService {
 
         employee.setName(employeeDto.getName());
         employee.setPassword(employeeDto.getPassword());
-        employee.setActive(employeeDto.getActive());
+        employee.setActive(employeeDto.getIsActive());
         employee.setPhoneNumber(employeeDto.getPhoneNumber());
         employee.setEmail(employeeDto.getEmail());
         employee.setDescription(employeeDto.getDescription());
@@ -78,7 +78,7 @@ public class EmployeeService {
             Employee employee = employeeById.get();
             employee.setName(employeeDto.getName());
             employee.setPassword(employeeDto.getPassword());
-            employee.setActive(employeeDto.getActive());
+            employee.setActive(employeeDto.getIsActive());
             employee.setPhoneNumber(employeeDto.getPhoneNumber());
             employee.setEmail(employeeDto.getEmail());
             employee.setDescription(employeeDto.getDescription());
