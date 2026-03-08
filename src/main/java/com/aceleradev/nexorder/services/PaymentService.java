@@ -36,7 +36,7 @@ public class PaymentService {
             Order order = getOrder(customerId);
             paymentToSave.setAmountPaid(payment.getTotalValue());
             paymentToSave.setPaymentMethod(payment.getPaymentMethod());
-            paymentToSave.setOrderId(order);
+            paymentToSave.setOrder(order);
 
             order.setOrderStatus(OrderStatus.PAID);
 

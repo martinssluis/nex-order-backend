@@ -21,7 +21,6 @@ public class OrderDTO {
         this.total = total;
     }
 
-
     public String getOrderStatus() {
         return orderStatus;
     }
