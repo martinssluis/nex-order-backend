@@ -68,7 +68,7 @@ public class OrderService {
         orderDTO.setOrderStatus(findOrder.getOrderStatus().name());
         orderDTO.setCustomerId(findOrder.getCustomerId().getId());
         orderDTO.setEmployeeId(findOrder.getEmployeeId().getId());
-        orderDTO.setTotal(Math.round(getTotalValue(findOrder.getOrderId()) * 100.00) / 100.00);
+        orderDTO.setTotal(Math.round(getTotalValue(findOrder.getId()) * 100.00) / 100.00);
         List<OrderItemDto> itemsList = orderItems.stream().map(item ->
                 {
                     orderItemDto.setName(item.getProduct().getName());
@@ -83,7 +83,7 @@ public class OrderService {
         return orderDTO;
     }
 
-    private Double getTotalValue(int orderId) {
+    private Double getTotalValue(long orderId) {
         Order findOrder = orderRepository.findById((long) orderId).orElseThrow(() -> new EntityNotFoundException("Not Found"));
         List<OrderItem> item = orderItemRepository.findAllByOrder(findOrder);
         Double totalValue = 0.0;

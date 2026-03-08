@@ -15,8 +15,9 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
     @OneToOne
-    @JoinColumn(name="orderId")
-    private Order orderId;
+    @MapsId
+    @JoinColumn(name="order_id")
+    private Order order;
 
     public Payment(){}
 
@@ -25,14 +26,14 @@ public class Payment {
         this.moment = moment;
         this.amountPaid = amountPaid;
         this.paymentMethod = paymentMethod;
-        this.orderId = orderId;
+        this.order = order;
     }
 
-    public Long getPaymentId() {
+    public Long getId() {
         return id;
     }
 
-    public void setPaymentId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,11 +61,11 @@ public class Payment {
         this.paymentMethod = paymentMethod;
     }
 
-    public Order getOrderId() {
-        return orderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderId(Order orderId) {
-        this.orderId = orderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private ZonedDateTime moment;
 
@@ -19,18 +19,17 @@ public class Order {
     private OrderStatus orderStatus;
 
     @ManyToOne
-    @JoinColumn(name="customerId")
+    @JoinColumn(name="customer_id")
     private Customer customer;
 
     @ManyToOne
     @JoinColumn(name="employee_id")
     private Employee employee;
 
-    @OneToOne(mappedBy = "orderId", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
-
-    public Order(Integer id, ZonedDateTime moment, OrderStatus orderStatus, Customer customer, Employee employee){
+    public Order(Long id, ZonedDateTime moment, OrderStatus orderStatus, Customer customer, Employee employee){
         this.id = id;
         this.moment = moment;
         this.orderStatus = orderStatus;
@@ -64,11 +63,11 @@ public class Order {
         this.moment = moment;
     }
 
-    public int getOrderId() {
+    public long getId() {
         return id;
     }
 
-    public void setOrderId(int orderId) {
+    public void setId(long orderId) {
         this.id = orderId;
     }
 
@@ -80,12 +79,16 @@ public class Order {
         this.payment = payment;
     }
 
-
     public OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public void addPayment(Payment payment) {
+        this.payment = payment;
+        payment.setOrder(this);
     }
 }
