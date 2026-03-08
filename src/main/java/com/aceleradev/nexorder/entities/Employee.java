@@ -13,7 +13,6 @@ public class Employee extends User {
     private Role role;
     private Double baseSalary;
 
-
     public Employee(){}
 
     public Employee(Long id, String name, String password, Boolean isActive,
