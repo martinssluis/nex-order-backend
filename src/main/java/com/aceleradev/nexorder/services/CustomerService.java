@@ -67,22 +67,15 @@ public class CustomerService {
 
     public Customer updateCustomer(Long id, UpdateCustomerDto customerDto) {
 
-        // 1. Pegar id
-        Optional<Customer> optionalCustomer = repository.findById(id);
+        var customer = repository.findById(id).orElseThrow(() -> new RuntimeException("Customer not found!"));
 
-        // 2. Setar informações
-        if (optionalCustomer.isPresent()) {
-            Customer customer = optionalCustomer.get();
-            customer.setName(customerDto.getName());
-            customer.setActive(customerDto.getIsActive());
-            customer.setPhoneNumber(customerDto.getPhoneNumber());
-            customer.setEmail(customerDto.getEmail());
-            customer.setDescription(customerDto.getDescription());
+        customer.setName(customerDto.getName());
+        customer.setActive(customerDto.getIsActive());
+        customer.setPhoneNumber(customerDto.getPhoneNumber()); // Deixei seu código mais limpo meu mano!
+        customer.setEmail(customerDto.getEmail());
+        customer.setDescription(customerDto.getDescription());
 
-            return repository.save(customer);
-        } else {
-            throw new RuntimeException("Customer not found!");
-        }
+        return repository.save(customer);
     }
 
     public void deleteCustomer(Long id) {
