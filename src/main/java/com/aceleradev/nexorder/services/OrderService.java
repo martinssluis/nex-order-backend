@@ -31,7 +31,6 @@ public class OrderService {
 
     public Order createOrder(OrderDTO orderDTO) {
         Order orderEntity = new Order();
-        OrderItem orderItemEntity = new OrderItem();
 
         Employee employee = employeeRepository.findById(orderDTO.getEmployee())
                 .orElseThrow(() -> new EntityNotFoundException("Not Found"));
@@ -46,6 +45,7 @@ public class OrderService {
         orderRepository.save(orderEntity);
 
         for (OrderItemDto dto : orderDTO.getItems()) {
+            OrderItem orderItemEntity = new OrderItem();
             Product product = productRepository.findById(dto.getProductId())
                     .orElseThrow(() -> new EntityNotFoundException("Not Found"));
 
@@ -62,7 +62,6 @@ public class OrderService {
     public OrderDTO getOrderById(Long id) {
         Order findOrder = orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Not Found"));
         OrderDTO orderDTO = new OrderDTO();
-        OrderItemDto orderItemDto = new OrderItemDto();
         List<OrderItem> orderItems = orderItemRepository.findAllByOrder(findOrder);
 
         orderDTO.setOrderStatus(findOrder.getOrderStatus().name());
@@ -71,6 +70,7 @@ public class OrderService {
         orderDTO.setTotal(Math.round(getTotalValue(findOrder.getId()) * 100.00) / 100.00);
         List<OrderItemDto> itemsList = orderItems.stream().map(item ->
                 {
+                    OrderItemDto orderItemDto = new OrderItemDto();
                     orderItemDto.setName(item.getProduct().getName());
                     orderItemDto.setQuantity(item.getQuantity());
                     orderItemDto.setProductId(item.getProduct().getId());

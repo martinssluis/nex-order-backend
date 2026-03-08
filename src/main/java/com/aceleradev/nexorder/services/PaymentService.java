@@ -43,7 +43,7 @@ public class PaymentService {
             orderRepository.save(order);
             paymentRepository.save(paymentToSave);
         } else {
-            new RuntimeException("Falha ao realizar pagamento");
+            throw new RuntimeException("Failed to make payment");
         }
     }
 
