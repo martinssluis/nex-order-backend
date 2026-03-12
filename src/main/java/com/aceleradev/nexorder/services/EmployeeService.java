@@ -17,9 +17,9 @@ public class EmployeeService {
 
     public List<EmployeeDto> findAll() {
         List<Employee> employees = repository.findAll();
-        EmployeeDto dto = new EmployeeDto();
         return employees.stream().map(
                 it -> {
+                    EmployeeDto dto = new EmployeeDto();
                     dto.setName(it.getName());
                     dto.setIsActive(it.getActive());
                     dto.setPhoneNumber(it.getPhoneNumber());
