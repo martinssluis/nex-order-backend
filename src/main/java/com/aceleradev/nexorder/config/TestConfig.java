@@ -36,12 +36,10 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception{
         Customer c1 = new Customer(null, "PC The One", "senha123", true, "12982228898",
-                "pctheone@email.com", "00000000001", "O Melhorzin que tÃ¡ tendo",
-                LocalDate.now(), LocalDate.now());
+                "pctheone@email.com", "00000000001", "O Melhorzin que tÃ¡ tendo", null);
 
         Employee e1 = new Employee(null, "Martins Luis", "senhaLuis123", true, "61982456789",
-                "martinsluis@email.com","00000000001", "Garoto Prodigio",
-                LocalDate.parse("2019-07-21"), Instant.now(),
+                "martinsluis@email.com","00000000001", "Garoto Prodigio", null,
                 Role.MANAGER, 6500.00);
 
         Product mouse = new Product(

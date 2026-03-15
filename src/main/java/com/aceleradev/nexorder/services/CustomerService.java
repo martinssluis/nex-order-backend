@@ -1,91 +1,69 @@
 package com.aceleradev.nexorder.services;
 
-import com.aceleradev.nexorder.dtos.customer.CreateCustomerDto;
-import com.aceleradev.nexorder.dtos.customer.ReadCustomerDto;
-import com.aceleradev.nexorder.dtos.customer.UpdateCustomerDto;
+import com.aceleradev.nexorder.dtos.customer.CustomerCreateRequest;
+import com.aceleradev.nexorder.dtos.customer.CustomerResponse;
+import com.aceleradev.nexorder.dtos.customer.CustomerUpdateRequest;
 import com.aceleradev.nexorder.entities.Customer;
+import com.aceleradev.nexorder.mapper.CustomerMapper;
 import com.aceleradev.nexorder.repositories.CustomerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CustomerService {
 
     @Autowired
-    private CustomerRepository repository;
+    private CustomerRepository customerRepository;
 
-    public List<ReadCustomerDto> findAll() {
-        List<Customer> customers = repository.findAll();
-        return customers
-                .stream()
-                .map(c -> {
-                            ReadCustomerDto customerDto = new ReadCustomerDto();
-                            customerDto.setName(c.getName());
-                            customerDto.setDescription(c.getDescription());
-                            customerDto.setActive(c.getActive());
-                            customerDto.setEmail(c.getEmail());
-                            customerDto.setPhoneNumber(c.getPhoneNumber());
-                            customerDto.setCreatedAt(c.getCreatedAt());
-                            return customerDto;
-                        }
-                ).toList();
+    @Autowired
+    private CustomerMapper customerMapper;
+
+    public List<CustomerResponse> findAll() {
+        // Converte uma lista de "Customer" em "CustomerResponse".
+        return customerMapper.toResponseList(customerRepository.findAll());
     }
 
-    public ReadCustomerDto findById(Long id) {
-        ReadCustomerDto customerDto = new ReadCustomerDto();
-        Customer customerRepository = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+    public CustomerResponse findById(Long id) {
 
-        customerDto.setName(customerRepository.getName());
-        customerDto.setDescription(customerRepository.getDescription());
-        customerDto.setActive(customerRepository.getActive());
-        customerDto.setEmail(customerRepository.getEmail());
-        customerDto.setPhoneNumber(customerRepository.getPhoneNumber());
-        customerDto.setCreatedAt(customerRepository.getCreatedAt());
+        // Verifica se o customer existe, se não, lança exceção.
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Customer not found."));
 
-        return customerDto;
+        return customerMapper.toResponse(customer);
     }
 
-    public Customer createCustomer(CreateCustomerDto customerDto) {
-        Customer customerEntity = new Customer();
+    public Customer create(CustomerCreateRequest request) {
 
-        customerEntity.setName(customerDto.getName());
-        customerEntity.setPassword(customerDto.getPassword());
-        customerEntity.setActive(customerDto.getActive());
-        customerEntity.setCreatedAt(LocalDate.now());
-        customerEntity.setPhoneNumber(customerDto.getPhoneNumber());
-        customerEntity.setEmail(customerDto.getEmail());
-        customerEntity.setDescription(customerDto.getDescription());
-        customerEntity.setIdentifier(customerDto.getIdentifier());
+        // 1. Converte o DTO "request" para a entidade "customer" com o mapper.
+        Customer customer = customerMapper.toEntity(request);
 
-        return repository.save(customerEntity);
+        // 2. Salva a entidade no banco.
+        return customerRepository.save(customer);
     }
 
-    public Customer updateCustomer(Long id, UpdateCustomerDto customerDto) {
+    public Customer update(Long id, CustomerUpdateRequest request) {
 
-        // 1. Pegar id
-        Optional<Customer> optionalCustomer = repository.findById(id);
+        // 1. Verifica se o id passado existe no banco.
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Customer not found."));
 
-        // 2. Setar informações
-        if (optionalCustomer.isPresent()) {
-            Customer customer = optionalCustomer.get();
-            customer.setName(customerDto.getName());
-            customer.setActive(customerDto.getIsActive());
-            customer.setPhoneNumber(customerDto.getPhoneNumber());
-            customer.setEmail(customerDto.getEmail());
-            customer.setDescription(customerDto.getDescription());
+        // 2. Se existir, atualiza com o mapper, se não, lança uma exceção.
+        customerMapper.updateCustomerFromDto(request, customer);
 
-            return repository.save(customer);
-        } else {
-            throw new RuntimeException("Customer not found!");
+        // 3. Salva a entidade atualizada.
+        return customerRepository.save(customer);
+    }
+
+    public void delete(Long id) {
+
+        if (!customerRepository.existsById(id)){
+            throw new EntityNotFoundException("Customer not found.");
         }
+
+        customerRepository.deleteById(id);
     }
 
-    public void deleteCustomer(Long id) {
-        repository.deleteById(id);
-    }
 }

@@ -2,10 +2,16 @@ package com.aceleradev.nexorder.entities;
 
 import com.aceleradev.nexorder.commons.enums.Role;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "tb_employee")
 public class Employee extends User {
@@ -15,32 +21,24 @@ public class Employee extends User {
 
     public Employee(){}
 
-    public Employee(Long id, String name, String password, Boolean isActive,
-                    String phoneNumber, String email, String identifier,
-                    String description, LocalDate createdAt,
-                    Instant lastLogin, Role role, Double baseSalary) {
+    public Employee(
+            Long id,
+            String name,
+            String password,
+            Boolean active,
+            String phoneNumber,
+            String email,
+            String identifier,
+            String description,
+            Instant lastLogin,
+            Role role,
+            Double baseSalary) {
 
-        super(id, name, password, isActive, phoneNumber, email, identifier,
-                 description, createdAt, lastLogin);
+        super(id, name, password, active, phoneNumber, email, identifier,
+                 description, lastLogin);
         setRole(role);
         this.baseSalary = baseSalary;
 
-    }
-
-    public Role getRole() {
-        return this.role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Double getBaseSalary() {
-        return baseSalary;
-    }
-
-    public void setBaseSalary(Double baseSalary) {
-        this.baseSalary = baseSalary;
     }
 
 }

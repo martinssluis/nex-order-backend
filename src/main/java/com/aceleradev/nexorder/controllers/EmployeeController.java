@@ -1,6 +1,10 @@
 package com.aceleradev.nexorder.controllers;
 
-import com.aceleradev.nexorder.dtos.employee.EmployeeDto;
+import com.aceleradev.nexorder.dtos.employee.EmployeeCreateRequest;
+import com.aceleradev.nexorder.dtos.employee.EmployeeResponse;
+import com.aceleradev.nexorder.dtos.employee.EmployeeUpdateRequest;
+import com.aceleradev.nexorder.entities.Employee;
+import com.aceleradev.nexorder.mapper.EmployeeMapper;
 import com.aceleradev.nexorder.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,36 +21,36 @@ public class EmployeeController {
     @Autowired
     private EmployeeService service;
 
+    @Autowired
+    private EmployeeMapper mapper;
+
     @GetMapping
-    public ResponseEntity<List<EmployeeDto>> findAll() {
-        List<EmployeeDto> list = service.findAll();
-        return ResponseEntity.ok().body(list);
+    public ResponseEntity<List<EmployeeResponse>> findAll() {
+        List<EmployeeResponse> employees = service.findAll();
+        return ResponseEntity.ok().body(employees);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeDto> findById(@PathVariable Long id) {
-        EmployeeDto obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<EmployeeResponse> findById(@PathVariable Long id) {
+        EmployeeResponse employee = service.findById(id);
+        return ResponseEntity.ok().body(employee);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createEmployee(@RequestBody EmployeeDto dto) {
-        service.createEmployee(dto);
+    public ResponseEntity<EmployeeResponse> create(@RequestBody EmployeeCreateRequest request) {
+        EmployeeResponse response = service.create(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEmployee(
-            @PathVariable Long id
-    ) {
-        service.deleteEmployee(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
-    public void updateEmployee(
-            @PathVariable Long id,
-            @RequestBody EmployeeDto dto
-    ) {
-        service.updateEmployee(id, dto);
+    @PatchMapping("/{id}")
+    public ResponseEntity<EmployeeResponse> update(@PathVariable Long id, @RequestBody EmployeeUpdateRequest request) {
+        EmployeeResponse response = service.update(id, request);
+        return ResponseEntity.ok(response);
     }
 }
