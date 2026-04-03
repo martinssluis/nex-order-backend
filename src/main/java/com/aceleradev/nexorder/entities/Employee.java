@@ -38,7 +38,5 @@ public class Employee extends User {
                  description, lastLogin);
         setRole(role);
         this.baseSalary = baseSalary;
-
     }
-
 }
