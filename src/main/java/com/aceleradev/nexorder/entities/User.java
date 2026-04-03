@@ -20,6 +20,7 @@ public abstract class User {
     private String password;
     private Boolean active;
     private String phoneNumber;
+    @Column(unique = true, nullable = false)
     private String email;
     private String identifier;
     private String description;
