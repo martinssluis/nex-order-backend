@@ -1,5 +1,6 @@
 package com.aceleradev.nexorder.infra.security;
 
+import com.aceleradev.nexorder.entities.Employee;
 import com.aceleradev.nexorder.entities.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -20,7 +21,7 @@ public class TokenService {
 
     private static final String ISSUER = "nex-order-backend";
 
-    public String generateToken(User user) {
+    public String generateToken(Employee user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
