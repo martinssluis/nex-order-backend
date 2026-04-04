@@ -60,8 +60,4 @@ public abstract class User {
     public int hashCode() {
         return Objects.hashCode(id);
     }
-
-    public JsonSubTypes.Type getRole() {
-        return null;
-    }
 }
