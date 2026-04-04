@@ -1,5 +1,6 @@
 package com.aceleradev.nexorder.entities;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -58,5 +59,9 @@ public abstract class User {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    public JsonSubTypes.Type getRole() {
+        return null;
     }
 }
