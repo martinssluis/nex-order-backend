@@ -21,7 +21,7 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("Invalid credentials"));
 
         if (!encoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("ERRO AQUI");
+            throw new RuntimeException("Invalid credentials");
         }
 
         return user;
