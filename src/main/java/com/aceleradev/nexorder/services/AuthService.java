@@ -18,10 +18,10 @@ public class AuthService {
     public Employee authenticate(String email, String password) {
 
         Employee user = repository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
 
         if (!encoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("Invalid password");
+            throw new RuntimeException("ERRO AQUI");
         }
 
         return user;

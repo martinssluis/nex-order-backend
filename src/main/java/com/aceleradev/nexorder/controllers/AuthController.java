@@ -21,10 +21,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest data) {
 
-        Employee user = authService.authenticate(data.email(), data.password());
+      Employee user = authService.authenticate(data.email(), data.password());
+      String token = tokenService.generateToken(user);
 
-        String token = tokenService.generateToken(user);
-
-        return ResponseEntity.ok(token);
+      return ResponseEntity.ok(token);
+      //@PostMapping("/login")
+      //public ResponseEntity<String> login(@RequestBody LoginRequest data) {
+        //  return ResponseEntity.ok("bateu aqui");
+      }
     }
-}
