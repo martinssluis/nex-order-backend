@@ -25,8 +25,5 @@ public class AuthController {
       String token = tokenService.generateToken(user);
 
       return ResponseEntity.ok(token);
-      //@PostMapping("/login")
-      //public ResponseEntity<String> login(@RequestBody LoginRequest data) {
-        //  return ResponseEntity.ok("bateu aqui");
       }
     }
