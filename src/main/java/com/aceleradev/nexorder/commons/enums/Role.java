@@ -10,7 +10,8 @@ public enum Role {
 
     SELLER("Vendedor"),
     MANAGER("Gestor"),
-    INTERN("Estagiário");
+    INTERN("Estagiário"),
+    CUSTOMER("Cliente");
 
     @JsonValue
     private final String name;

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -32,13 +33,15 @@ public class TestConfig implements CommandLineRunner {
     private OrderRepository orderRepository;
     @Autowired
     private OrderItemRepository orderItemRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception{
         Customer c1 = new Customer(null, "PC The One", "senha123", true, "12982228898",
                 "pctheone@email.com", "00000000001", "O Melhorzin que tÃ¡ tendo", null);
 
-        Employee e1 = new Employee(null, "Martins Luis", "senhaLuis123", true, "61982456789",
+        Employee e1 = new Employee(null, "Martins Luis", passwordEncoder.encode("senha123"), true, "61982456789",
                 "martinsluis@email.com","00000000001", "Garoto Prodigio", null,
                 Role.MANAGER, 6500.00);
 
