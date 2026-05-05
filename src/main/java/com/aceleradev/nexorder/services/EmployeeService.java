@@ -8,6 +8,7 @@ import com.aceleradev.nexorder.mapper.EmployeeMapper;
 import com.aceleradev.nexorder.repositories.EmployeeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,9 @@ public class EmployeeService {
 
     @Autowired
     private EmployeeRepository repository;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Autowired
     private EmployeeMapper employeeMapper;
@@ -35,6 +39,8 @@ public class EmployeeService {
 
     public EmployeeResponse create(EmployeeCreateRequest request) {
         Employee employee = employeeMapper.toEntity(request);
+        employee.setPassword(encoder.encode(request.password()));
+
         repository.save(employee);
 
         return employeeMapper.toResponse(employee);
