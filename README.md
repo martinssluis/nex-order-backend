@@ -77,6 +77,18 @@ API REST para sistema de gestão de empresas desenvolvida com Spring Boot, segui
 └── 📝 README.md
 ```
 
+## Running with Docker
+
+1. Copy the example file and set your database credentials:
+   ```bash
+   cp .env.example .env
+   ```
+2. Build and start the app:
+   ```bash
+   docker compose up --build
+   ```
+3. API: http://localhost:8080 · Swagger: http://localhost:8080/swagger
+
 ### **`backend/`**
 Pasta raiz do projeto backend em Java com Spring Boot e Maven.
 
