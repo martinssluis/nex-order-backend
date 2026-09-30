@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    container_name: nexOrder_app
+    container_name: nexorder-app
     environment:
       - DB_URL=${DB_URL:?DB_URL is not set - see .env.example}
       - DB_USER=${DB_USER:?DB_USER is not set - see .env.example}
