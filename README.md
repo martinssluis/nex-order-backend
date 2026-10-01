@@ -10,6 +10,19 @@ REST API for a company management system built with Spring Boot, following a lay
 - **H2 Database** (development)
 - **Maven**
 
+## Running with Docker
+
+1. Copy the example file and set your database credentials:
+   ```bash
+   cp .env.example .env
+   ```
+2. Build and start the app:
+   ```bash
+   docker compose up --build
+   ```
+3. API: http://localhost:8080 · Swagger: http://localhost:8080/swagger
+
+
 ## 📂 Project Structure and Main Folders
 
 ```
@@ -76,18 +89,6 @@ REST API for a company management system built with Spring Boot, following a lay
 │   └── ⚙️ pom.xml
 └── 📝 README.md
 ```
-
-## Running with Docker
-
-1. Copy the example file and set your database credentials:
-   ```bash
-   cp .env.example .env
-   ```
-2. Build and start the app:
-   ```bash
-   docker compose up --build
-   ```
-3. API: http://localhost:8080 · Swagger: http://localhost:8080/swagger
 
 ### **`backend/`**
 Root folder of the Java backend project, built with Spring Boot and Maven.
