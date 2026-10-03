@@ -1,16 +1,29 @@
 # Nex Order API
 
-API REST para sistema de gestão de empresas desenvolvida com Spring Boot, seguindo arquitetura em camadas.
+REST API for a company management system built with Spring Boot, following a layered architecture.
 
-## 🚀 Tecnologias
+## 🚀 Technologies
 
 - **Java 21**
 - **Spring Boot 3.5.7**
 - **Spring Data JPA**
-- **H2 Database** (desenvolvimento)
+- **H2 Database** (development)
 - **Maven**
 
-## 📂 Estrutura do Projeto e Pastas Principais
+## Running with Docker
+
+1. Copy the example file and set your database credentials:
+   ```bash
+   cp .env.example .env
+   ```
+2. Build and start the app:
+   ```bash
+   docker compose up --build
+   ```
+3. API: http://localhost:8080 · Swagger: http://localhost:8080/swagger
+
+
+## 📂 Project Structure and Main Folders
 
 ```
 ├── 📁 backend
@@ -78,52 +91,52 @@ API REST para sistema de gestão de empresas desenvolvida com Spring Boot, segui
 ```
 
 ### **`backend/`**
-Pasta raiz do projeto backend em Java com Spring Boot e Maven.
+Root folder of the Java backend project, built with Spring Boot and Maven.
 
 ### **`backend/src/main/java/com/aceleradev/backend/`**
-Contém o código-fonte principal da aplicação Spring Boot, organizado em camadas:
+Contains the main source code of the Spring Boot application, organized in layers:
 
-- **`BackendApplication.java`** - Classe principal da aplicação, ponto de entrada (`main`) do Spring Boot
+- **`BackendApplication.java`** - Main application class, the Spring Boot entry point (`main`)
 
-- **📦 `entities/`** - Entidades JPA que representam as tabelas do banco de dados
-  - `Client.java` - Entidade cliente com anotações JPA (@Entity, @Id, @GeneratedValue)
+- **📦 `entities/`** - JPA entities that represent the database tables
+  - `Client.java` - Client entity with JPA annotations (@Entity, @Id, @GeneratedValue)
 
-- **🗄️ `repositories/`** - Interfaces que estendem JpaRepository para operações de banco de dados
-  - `ClientRepository.java` - Repositório para operações CRUD de Client
+- **🗄️ `repositories/`** - Interfaces extending JpaRepository for database operations
+  - `ClientRepository.java` - Repository for Client CRUD operations
 
-- **💼 `services/`** - Camada de lógica de negócio com injeção de dependências
-  - `ClientService.java` - Serviços relacionados ao Client
+- **💼 `services/`** - Business logic layer with dependency injection
+  - `ClientService.java` - Client-related services
 
-- **🌐 `resources/`** - Controllers REST que expõem os endpoints da API
-  - `ClientResource.java` - Endpoints REST para Client
+- **🌐 `resources/`** - REST controllers that expose the API endpoints
+  - `ClientResource.java` - REST endpoints for Client
 
-- **⚙️ `config/`** - Classes de configuração da aplicação (database seeding, beans, etc)
+- **⚙️ `config/`** - Application configuration classes (database seeding, beans, etc.)
 
 ### **`backend/src/main/resources/`**
-Contém arquivos de configuração e recursos da aplicação:
-- **`application.properties`** / **`application.yml`** - Arquivos de configuração da aplicação (banco de dados, portas, profiles etc)
-- **`application-test.properties`** - Configurações específicas para o ambiente de teste
-- **`static/`** - Arquivos estáticos (CSS, JS, imagens), se necessário
-- **`templates/`** - Templates de visualização (por exemplo, Thymeleaf), se utilizados
+Contains the application's configuration files and resources:
+- **`application.properties`** / **`application.yml`** - Application configuration files (database, ports, profiles, etc.)
+- **`application-test.properties`** - Settings specific to the test environment
+- **`static/`** - Static files (CSS, JS, images), if needed
+- **`templates/`** - View templates (e.g., Thymeleaf), if used
 
 ### **`backend/src/test/java/com/aceleradev/backend/`**
-Contém os testes automatizados da aplicação:
-- **`BackendApplicationTests.java`** - Classe de testes base da aplicação
+Contains the application's automated tests:
+- **`BackendApplicationTests.java`** - Base test class of the application
 
 ### **`backend/.mvn/`**
-Arquivos relacionados ao Maven Wrapper, permitindo rodar o projeto sem Maven instalado globalmente:
-- **`maven-wrapper.properties`** - Configurações do Maven Wrapper
+Files related to the Maven Wrapper, which allows running the project without a globally installed Maven:
+- **`maven-wrapper.properties`** - Maven Wrapper settings
 
 ### **`backend/pom.xml`**
-Arquivo de configuração Maven principal do projeto. Define dependências, plugins e configurações de build.
+Main Maven configuration file of the project. Defines dependencies, plugins, and build settings.
 
 ### **`backend/Gestao-De-Empresas/`**
-Projeto Maven adicional (módulo) com sua própria estrutura `src` e `pom.xml`. Pode ser um módulo antigo, um experimento ou um subprojeto relacionado à gestão de empresas.
+Additional Maven project (module) with its own `src` structure and `pom.xml`. It may be an old module, an experiment, or a subproject related to company management.
 
 ### **`backend/untitled/`**
-Outro projeto Maven separado, possivelmente criado para testes/investigações. Também possui sua própria estrutura `src` e `pom.xml`.
+Another separate Maven project, possibly created for tests or experiments. It also has its own `src` structure and `pom.xml`.
 
-### **Arquivos de Configuração na Raiz:**
-- **`.gitignore`** / **`.gitattributes`** - Arquivos de configuração do Git para ignorar arquivos/pastas e ajustar atributos de commits
-- **`mvnw`** / **`mvnw.cmd`** - Scripts do Maven Wrapper para rodar o Maven via linha de comando em Linux/Mac (`mvnw`) ou Windows (`mvnw.cmd`)
-- **`README.md`** - Arquivo de documentação principal do projeto
+### **Root Configuration Files:**
+- **`.gitignore`** / **`.gitattributes`** - Git configuration files to ignore files/folders and adjust commit attributes
+- **`mvnw`** / **`mvnw.cmd`** - Maven Wrapper scripts to run Maven from the command line on Linux/Mac (`mvnw`) or Windows (`mvnw.cmd`)
+- **`README.md`** - Main documentation file of the project
